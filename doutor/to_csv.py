@@ -6,4 +6,4 @@ class ToCSV(object):
 
     def list_to_csv(self):
         df = pd.DataFrame(self.list)
-        df.to_csv('starbucks_list.csv',index=None,encoding='utf-8-sig')
+        df.to_csv('cafe_list.csv',index=None,encoding='utf-8-sig')
