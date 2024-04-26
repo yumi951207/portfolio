@@ -1,9 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
-import os
 import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from info import get_info
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '../'))
+from get_info import GetInfo
+
 
 class GetInfoDoutor(GetInfo):
     def __init__(self,shop_url,name,na_wifi,address,menu):
@@ -11,6 +12,7 @@ class GetInfoDoutor(GetInfo):
         self.menu = menu
 
     def get_menu(self):
+        super().get_info()
         shop_r = requests.get(self.shop_url)
         shop_soup = BeautifulSoup(shop_r.content,"lxml")
         shop_menu = shop_soup.select(self.menu)

@@ -1,5 +1,7 @@
 from time import sleep
 import const
+import sys
+import os
 from get_urls import GetUrls
 from get_info_doutor import GetInfoDoutor
 from to_csv import ToCSV
