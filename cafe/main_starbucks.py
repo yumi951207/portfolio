@@ -1,16 +1,15 @@
-#test
 from time import sleep
 import requests
 from bs4 import BeautifulSoup
 import sys
 sys.path.append("./common_mod/")
 sys.path.append("./starbucks/")
-from common_mod import const
-from common_mod import to_csv
-from starbucks import get_urls_starbucks
-from starbucks import get_info_starbucks
+import const
+from GetUrlsStarbucks import GetUrlsStarbucks
+from GetInfoStarbucks import GetInfoStarbucks
+from ToCSV import ToCSV
 
-getdriver = get_urls_starbucks.GetUrlsStarBucks(const.URL_STARBUCKS)
+getdriver = GetUrlsStarbucks(const.URL_STARBUCKS)
 id_list = getdriver.access_site()
 cafe_list = []
 count = 0
@@ -19,8 +18,10 @@ for id in id_list:
     url = const.URL_STARBUCKS_BASE + f"detail-{id}/"
     r = requests.get(url)
     soup = BeautifulSoup(r.content,"lxml")
-    getinfostarbucks = get_info_starbucks.GetInfoStarbucks(
-        soup,".store-detail__title-text",".store-detail__text-title:-soup-contains('無線LAN')",
+    getinfostarbucks = GetInfoStarbucks(
+        soup,
+        ".store-detail__title-text",
+        ".store-detail__text-title:-soup-contains('無線LAN')",
         ".store-detail__content-desc > div:first-of-type")
     cafe_d = getinfostarbucks.get_info()
     print(cafe_d)
@@ -35,5 +36,5 @@ for id in id_list:
     if count > 5:
         break
 
-tocsv = to_csv.ToCSV(cafe_list,"starbucks_list")
+tocsv = ToCSV(cafe_list,"starbucks_list")
 tocsv.list_to_csv()

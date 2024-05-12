@@ -4,20 +4,22 @@ from bs4 import BeautifulSoup
 import sys
 sys.path.append("./common_mod/")
 sys.path.append("./doutor/")
-from common_mod import const
-from common_mod import to_csv
-from doutor import get_urls_doutor
-from doutor import get_info_doutor
+import const
+from GetUrlsDoutor import GetUrlsDoutor
+from GetInfoDoutor import GetInfoDoutor
+from ToCSV import ToCSV
 
-getdriver = get_urls_doutor.GetUrlsDoutor(const.URL_DOUTOR)
+getdriver = GetUrlsDoutor(const.URL_DOUTOR)
 shop_urls = getdriver.access_site()
 cafe_list = []
 for url in shop_urls:
     cafe_dict = {}
     r = requests.get(url)
     soup = BeautifulSoup(r.content,"lxml")
-    getinfodoutor = get_info_doutor.GetInfoDoutor(
-        soup,"h1","td:-soup-contains('FREE Wi-Fi')","tr.w_7_detail_2_2_5-spot-detail-row > td",
+    getinfodoutor = GetInfoDoutor(
+        soup,
+        "h1","td:-soup-contains('FREE Wi-Fi')",
+        "tr.w_7_detail_2_2_5-spot-detail-row > td",
         "#w_7_detail_2_2_3-widget-body > table > tbody > tr:first-of-type > td > span")
     cafe_d = getinfodoutor.get_info()
     print(cafe_d)
@@ -30,5 +32,5 @@ for url in shop_urls:
 sleep(3)
 # print(cafe_list)
 
-tocsv = to_csv.ToCSV(cafe_list,"doutor_list")
+tocsv = ToCSV(cafe_list,"doutor_list")
 tocsv.list_to_csv()
