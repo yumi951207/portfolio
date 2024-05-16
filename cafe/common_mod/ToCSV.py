@@ -1,6 +1,11 @@
 import pandas as pd
+from typing import Protocol
 
-class ToCSV(object):
+class ToCSVProtocol(Protocol):
+    def list_to_csv(self) -> None:
+        ...
+
+class ToCSV(ToCSVProtocol):
     def __init__(self, list, list_name):
         self.list = list
         self.list_name =  list_name

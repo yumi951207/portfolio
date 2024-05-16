@@ -1,6 +1,11 @@
 from bs4 import BeautifulSoup
+from typing import Protocol
 
-class GetInfo:
+class GetInfoProtocol(Protocol):
+    def get_info(self) -> None:
+        ...
+
+class GetInfo(GetInfoProtocol):
     def __init__(self, shop_soup, name, na_wifi, address):
         self.shop_soup = shop_soup
         self.name = name

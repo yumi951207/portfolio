@@ -1,7 +1,13 @@
 from bs4 import BeautifulSoup
 from GetInfo import GetInfo
+from typing import Protocol
+from typing import Tuple
 
-class GetInfoStarbucks(GetInfo):
+class GetInfoStarbucksProtocol(Protocol):
+    def get_info(self) -> Tuple[str, str, str, str]:
+        ...
+
+class GetInfoStarbucks(GetInfoStarbucksProtocol, GetInfo):
     def __init__(self, shop_url, name, na_wifi, address):
         super().__init__(shop_url, name, na_wifi, address)
 

@@ -1,7 +1,12 @@
 from GetDriver import GetDriver
 from const import DOUTOR
+from typing import Protocol
 
-class GetUrlsDoutor(GetDriver):
+class GetUrlsDoutorProtocol(Protocol):
+    def access_site(self) -> list:
+        ...
+
+class GetUrlsDoutor(GetUrlsDoutorProtocol, GetDriver):
 # while True:
 #     next_page = driver.find_element_by_id('w_7_searchresult_1_1_searchmore')
 #     shops = driver.find_elements_by_css_selector(".w_7_searchresult_1_1-spot-name > a")
