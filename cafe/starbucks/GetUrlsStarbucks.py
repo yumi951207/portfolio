@@ -2,8 +2,13 @@ from time import sleep
 from selenium.webdriver.support.ui import Select
 from GetDriver import GetDriver
 from const import STARBUCKS
+from typing import Protocol
 
-class GetUrlsStarbucks(GetDriver):
+class GetUrlsStarbucksProtocol(Protocol):
+    def access_site(self) -> list:
+        ...
+
+class GetUrlsStarbucks(GetUrlsStarbucksProtocol, GetDriver):
     def __init__(self,url):
         super().__init__(url)
 

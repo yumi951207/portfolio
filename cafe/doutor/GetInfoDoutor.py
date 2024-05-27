@@ -1,7 +1,13 @@
 from bs4 import BeautifulSoup
 from GetInfo import GetInfo
+from typing import Protocol
+from typing import Tuple
 
-class GetInfoDoutor(GetInfo):
+class GetInfoDoutorProtocol(Protocol):
+    def get_info(self) -> Tuple[str, str, str, list]:
+        ...
+
+class GetInfoDoutor(GetInfoDoutorProtocol, GetInfo):
     def __init__(self, shop_url, name, na_wifi, address, menu):
         super().__init__(shop_url, name, na_wifi, address)
         self.menu = menu
