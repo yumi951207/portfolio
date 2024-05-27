@@ -7,7 +7,7 @@ class GetInfoDoutorProtocol(Protocol):
     def get_info(self) -> Tuple[str, str, str, list]:
         ...
 
-class GetInfoDoutor(GetInfoDoutorProtocol, GetInfo):
+class GetInfoDoutor(GetInfo, GetInfoDoutorProtocol):
     def __init__(self, shop_url, name, na_wifi, address, menu):
         super().__init__(shop_url, name, na_wifi, address)
         self.menu = menu
